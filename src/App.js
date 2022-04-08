@@ -72,6 +72,8 @@ function App() {
         .then(result => {
           const user = result.user;
           console.log(user);
+          setEmail(' ');
+          setPassword(' ');
         })
         .catch(error => {
           console.error(error);
@@ -86,6 +88,9 @@ function App() {
           console.log(user);
           getVarification();
           updateUser();
+          setName('');
+          setEmail('');
+          setPassword('');
         })
         .catch(error => {
           console.error(error);
@@ -100,13 +105,13 @@ function App() {
       <div className="registration w-50 mx-auto mt-2">
         <h2 className="text-primary">Please {registered ? "Log In" : "Register First"}</h2>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          {!registered && <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>User Name</Form.Label>
             <Form.Control onBlur={handleUserNameBlur} type="text" placeholder="Enter Your Name" required />
             <Form.Control.Feedback type="invalid">
               Please provide Your Name.
             </Form.Control.Feedback>
-          </Form.Group>
+          </Form.Group>}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control onBlur={handleEmailBlur} type="email" placeholder="Enter email" required />
@@ -132,7 +137,7 @@ function App() {
           <Button variant="primary" type="submit">
             {registered ? "Log In" : "Register"}
           </Button>
-          <Button onClick={passwordReset} variant="link">Forget Password?</Button>
+          {registered && <Button onClick={passwordReset} variant="link">Forget Password?</Button>}
         </Form>
       </div>
 
